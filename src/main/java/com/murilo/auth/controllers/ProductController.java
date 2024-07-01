@@ -23,7 +23,7 @@ public class ProductController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProductResponseDTO> postProduct(@RequestBody @Valid ProductRequestDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ProductResponseDTO> postProduct(@RequestBody @Valid ProductRequestDTO data, UriComponentsBuilder uriBuilder) {
         var product = new Product(data);
 
         this.repository.save(product);
@@ -32,14 +32,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductLista>> getAllProducts(){
+    public ResponseEntity<List<ProductLista>> getAllProducts() {
         var productList = this.repository.findAll().stream().map(ProductLista::new).toList();
 
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> detalhar(@PathVariable Long id){
+    public ResponseEntity<ProductResponseDTO> detalhar(@PathVariable Long id) {
         var product = repository.getReferenceById(id);
 
         return ResponseEntity.ok(new ProductResponseDTO(product));
