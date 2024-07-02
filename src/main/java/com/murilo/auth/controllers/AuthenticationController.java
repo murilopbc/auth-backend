@@ -1,9 +1,11 @@
 package com.murilo.auth.controllers;
 
 import com.murilo.auth.dtos.user.AuthenticationDTO;
+import com.murilo.auth.dtos.user.LoginResponseDTO;
 import com.murilo.auth.dtos.user.RegisterDTO;
 import com.murilo.auth.entities.User;
 import com.murilo.auth.repositories.UserRepository;
+import com.murilo.auth.services.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private TokenService tokenService;
 
 
     @PostMapping("/login")
@@ -29,8 +33,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
+        var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
