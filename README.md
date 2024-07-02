@@ -25,7 +25,7 @@ The API was developed based on [Youtube Tutorial](https://www.youtube.com/watch?
 1. Clone the repository:
 
 ```bash
-https://github.com/murilopbc/authentication-backend.git
+https://github.com/murilopbc/auth-backend.git
 ```
 
 2. Install dependencies with Maven
