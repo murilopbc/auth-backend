@@ -35,8 +35,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+        // Validação se já tem um usuário cadastrado no banco de dados
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
+        // As senhas dos usuários no banco de dados estarão criptografadas em forma de HASH. Posteriormente,
+        // é feito uma validação se a senha que o usuário colocou é a mesma que foi criptografada
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.login(), encryptedPassword, data.role());
 

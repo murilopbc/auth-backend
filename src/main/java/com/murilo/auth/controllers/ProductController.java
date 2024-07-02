@@ -43,6 +43,5 @@ public class ProductController {
         var product = repository.getReferenceById(id);
 
         return ResponseEntity.ok(new ProductResponseDTO(product));
-
     }
 }
