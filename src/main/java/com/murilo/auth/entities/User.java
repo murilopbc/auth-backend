@@ -1,5 +1,6 @@
-package com.murilo.auth.entities.user;
+package com.murilo.auth.entities;
 
+import com.murilo.auth.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,8 @@ public class User implements UserDetails {
     private Long id;
     private String login;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     public User(String login, String password, UserRole role){

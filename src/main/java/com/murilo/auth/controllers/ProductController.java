@@ -1,9 +1,9 @@
 package com.murilo.auth.controllers;
 
-import com.murilo.auth.entities.product.Product;
-import com.murilo.auth.entities.product.ProductLista;
-import com.murilo.auth.entities.product.ProductRequestDTO;
-import com.murilo.auth.entities.product.ProductResponseDTO;
+import com.murilo.auth.entities.Product;
+import com.murilo.auth.dtos.product.ProductLista;
+import com.murilo.auth.dtos.product.ProductRequestDTO;
+import com.murilo.auth.dtos.product.ProductResponseDTO;
 import com.murilo.auth.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

@@ -1,4 +1,5 @@
-package com.murilo.auth.entities.product;
+package com.murilo.auth.entities;
+import com.murilo.auth.dtos.product.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package com.murilo.auth.entities.product;
+package com.murilo.auth.dtos.product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

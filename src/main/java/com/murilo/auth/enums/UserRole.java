@@ -1,4 +1,4 @@
-package com.murilo.auth.entities.user;
+package com.murilo.auth.enums;
 
 public enum UserRole {
     ADMIN("admin"),

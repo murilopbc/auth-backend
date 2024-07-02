@@ -1,4 +1,6 @@
-package com.murilo.auth.entities.product;
+package com.murilo.auth.dtos.product;
+
+import com.murilo.auth.entities.Product;
 
 public record ProductResponseDTO(Long id, String name, Integer price) {
     public ProductResponseDTO(Product product){
