@@ -40,7 +40,11 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         // O ideal seria que somente os usuários ADM possam criar uma conta
-                        .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/product").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/product/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/product/inativar/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/product/ativar/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
