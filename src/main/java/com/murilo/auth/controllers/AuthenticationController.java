@@ -5,17 +5,18 @@ import com.murilo.auth.dtos.user.LoginResponseDTO;
 import com.murilo.auth.dtos.user.RegisterDTO;
 import com.murilo.auth.entities.User;
 import com.murilo.auth.repositories.UserRepository;
+import com.murilo.auth.services.AuthorizationService;
 import com.murilo.auth.services.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("auth")
@@ -26,6 +27,8 @@ public class AuthenticationController {
     private UserRepository repository;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private AuthorizationService authorizationService;
 
 
     @PostMapping("/login")
@@ -40,8 +43,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
-        // Validação se já tem um usuário cadastrado no banco de dados
-        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         // As senhas dos usuários no banco de dados estarão criptografadas em forma de HASH. Posteriormente,
         // é feito uma validação se a senha que o usuário colocou é a mesma que foi criptografada
@@ -51,5 +52,11 @@ public class AuthenticationController {
         this.repository.save(newUser);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = this.authorizationService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

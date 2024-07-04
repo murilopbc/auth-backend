@@ -1,11 +1,15 @@
 package com.murilo.auth.services;
 
+import com.murilo.auth.dtos.user.RegisterDTO;
+import com.murilo.auth.entities.User;
 import com.murilo.auth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.List;
+
 
 @Service
 public class AuthorizationService implements UserDetailsService {
@@ -15,6 +19,20 @@ public class AuthorizationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByLogin(username); // Consulta os usuários no banco de dados a partir do login
+        return repository.findByLogin(username);
+    }
+
+    public User createUser(RegisterDTO data) {
+        User newUser = new User(data);
+        this.saveUser(newUser);
+        return newUser;
+    }
+
+    public List<User> getAllUsers() {
+        return this.repository.findAll();
+    }
+
+    public void saveUser(User user) {
+        this.repository.save(user);
     }
 }

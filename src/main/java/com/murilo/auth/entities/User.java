@@ -1,5 +1,6 @@
 package com.murilo.auth.entities;
 
+import com.murilo.auth.dtos.user.RegisterDTO;
 import com.murilo.auth.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +36,20 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
     }
+
+    public User(RegisterDTO data) {
+    }
+
     // Usuário Administrador tem acesso a tudo que um usuário comum tem + acesso ADM
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
