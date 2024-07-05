@@ -25,10 +25,11 @@ public class ProductController {
     @PostMapping
     @Transactional
     public ResponseEntity<ProductDataDTO> postProduct(@RequestBody @Valid PostProductDTO data, UriComponentsBuilder uriBuilder) {
-        var product = new Product(data);
 
-        this.repository.save(product);
-        var uri = uriBuilder.path("/products/{id}").buildAndExpand(product.getId()).toUri();
+        var product = new Product(data);
+        repository.save(product);
+
+        var uri = uriBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).body(new ProductDataDTO(product));
     }
 
