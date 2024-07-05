@@ -28,6 +28,7 @@ public class Product {
     public Product(PostProductDTO data){
         this.price = data.price();
         this.name = data.name();
+        this.active = true;
     }
 
     public void atualizarInformacoes(@Valid PutProductDTO dados){
