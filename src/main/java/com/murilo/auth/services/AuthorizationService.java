@@ -1,6 +1,5 @@
 package com.murilo.auth.services;
 
-import com.murilo.auth.dtos.exception.UnauthorizedException;
 import com.murilo.auth.dtos.user.RegisterDTO;
 import com.murilo.auth.entities.User;
 import com.murilo.auth.repositories.UserRepository;
@@ -30,7 +29,7 @@ public class AuthorizationService implements UserDetailsService {
     }
 
     public List<User> getAllUsers() {
-        throw new UnauthorizedException();
+    return this.repository.findAll();
     }
 
     public void saveUser(User user) {

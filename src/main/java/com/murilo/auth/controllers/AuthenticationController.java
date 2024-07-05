@@ -1,7 +1,5 @@
 package com.murilo.auth.controllers;
 
-import com.murilo.auth.dtos.exception.ExceptionDTO;
-import com.murilo.auth.dtos.exception.UnauthorizedException;
 import com.murilo.auth.dtos.user.AuthenticationDTO;
 import com.murilo.auth.dtos.user.LoginResponseDTO;
 import com.murilo.auth.dtos.user.RegisterDTO;
@@ -14,7 +12,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -64,11 +61,7 @@ public class AuthenticationController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        try {
-            List<User> users = this.authorizationService.getAllUsers();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } catch (UnauthorizedException ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso não autorizado");
-        }
+        List<User> users = this.authorizationService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
