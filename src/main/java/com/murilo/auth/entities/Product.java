@@ -19,6 +19,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     private String name;
 
     private Integer price;
@@ -30,6 +31,7 @@ public class Product {
         this.name = data.name();
         this.active = true;
     }
+
 
     public void atualizarInformacoes(@Valid PutProductDTO dados){
         if (dados.name() != null){

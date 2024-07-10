@@ -9,11 +9,13 @@ import com.murilo.auth.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/product")
@@ -25,6 +27,13 @@ public class ProductController {
     @PostMapping
     @Transactional
     public ResponseEntity<ProductDataDTO> postProduct(@RequestBody @Valid PostProductDTO data, UriComponentsBuilder uriBuilder) {
+
+        Optional<Product> existingProduct = repository.findByName(data.name());
+
+        if (existingProduct.isPresent()) {
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
 
         var product = new Product(data);
         repository.save(product);

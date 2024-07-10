@@ -10,4 +10,5 @@ public record PostProductDTO(
         @NotNull
         Integer price
 ) {
+
 }
