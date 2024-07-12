@@ -46,6 +46,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/product/inativar/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/product/ativar/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/auth/users").hasRole("ADMIN")
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
