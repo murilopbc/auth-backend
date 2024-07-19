@@ -42,13 +42,25 @@ https://github.com/murilopbc/auth-backend.git
 The API provides the following endpoints:
 
 ```markdown
+POST /product - Register a new product (ADMIN access required).
+
 GET /product - Retrieve a list of all products. (all authenticated users)
 
-POST /product - Register a new product (ADMIN access required).
+GET /product/{id} - Retrieve the details of a product by id. (all authenticated users)
+
+PUT /product - Update information of a product. (ADMIN access required)
+
+DELETE /product/{id} - Delete a product by id (ADMIN access required).
+
+DELETE /product/inativar/{id} - Inactivate a product by id. (ADMIN access required).
+
+PUT /product/ativar/{id} - Activate a product by id. (ADMIN access required).
 
 POST /auth/login - Login into the App
 
 POST /auth/register - Register a new user into the App
+
+GET /auth/users - Get all users into the App
 ```
 
 ## API Testing
